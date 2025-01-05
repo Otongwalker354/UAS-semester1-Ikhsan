@@ -1,0 +1,94 @@
+#include <iostream>
+#include <vector>
+#include <algorithm> // Untuk std::sort
+using namespace std;
+
+// Fungsi untuk melakukan Binary Search
+int binarySearch(const std::vector<int>& arr, int target) {
+    int left = 0;
+    int right = arr.size() - 1;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        // Jika target ditemukan
+        if (arr[mid] == target) {
+            return mid; // Mengembalikan indeks
+        }
+        // Jika target lebih besar, abaikan bagian kiri
+        else if (arr[mid] < target) {
+            left = mid + 1;
+        }
+        // Jika target lebih kecil, abaikan bagian kanan
+        else {
+            right = mid - 1;
+        }
+    }
+    return -1; // Jika target tidak ditemukan
+}
+
+// Fungsi untuk melakukan Linear Search
+int linearSearch(const std::vector<int>& arr, int target) {
+    for (size_t i = 0; i < arr.size(); ++i) {
+        if (arr[i] == target) {
+            return i; // Mengembalikan indeks
+        }
+    }
+    return -1; // Jika target tidak ditemukan
+}
+
+// Fungsi untuk mendapatkan input dari pengguna
+void inputArray(std::vector<int>& arr) {
+    int n, value;
+    std::cout << "Masukkan jumlah elemen: ";
+    std::cin >> n;
+
+    std::cout << "Masukkan elemen (pisahkan dengan spasi): ";
+    for (int i = 0; i < n; ++i) {
+        std::cin >> value;
+        arr.push_back(value);
+    }
+}
+
+int main() {
+    cout << "nama: ikhsan adzimil burhan"<<endl;
+	cout << "NIM : 241011400939"<< endl;
+	cout << "--------------------" << endl;
+
+    // Dataset terurut untuk Binary Search
+    std::vector<int> sortedArray;
+    std::cout << "Input untuk Binary Search (dataset terurut):" << std::endl;
+    inputArray(sortedArray);
+    std::sort(sortedArray.begin(), sortedArray.end()); // Mengurutkan array
+
+    int targetBinary;
+    std::cout << "Masukkan elemen yang ingin dicari (Binary Search): ";
+    std::cin >> targetBinary;
+
+    // Melakukan Binary Search
+    int resultBinary = binarySearch(sortedArray, targetBinary);
+    if (resultBinary != -1) {
+        std::cout << "Binary Search: Elemen " << targetBinary << " ditemukan di indeks " << resultBinary << std::endl;
+    } else {
+        std::cout << "Binary Search: Elemen " << targetBinary << " tidak ditemukan." << std::endl;
+    }
+
+    // Dataset tidak terurut untuk Linear Search
+    std::vector<int> unsortedArray;
+    std::cout << "Input untuk Linear Search (dataset tidak terurut):" << std::endl;
+    inputArray(unsortedArray);
+
+    int targetLinear;
+    std::cout << "Masukkan elemen yang ingin dicari (Linear Search): ";
+    std::cin >> targetLinear;
+
+    // Melakukan Linear Search
+    int resultLinear = linearSearch(unsortedArray, targetLinear);
+    if (resultLinear != -1) {
+        std::cout << "Linear Search: Elemen " << targetLinear << " ditemukan di indeks " << resultLinear << std::endl;
+    } else {
+        std::cout << "Linear Search: Elemen " << targetLinear << " tidak ditemukan." << std::endl;
+    }
+
+    return 0;
+}
